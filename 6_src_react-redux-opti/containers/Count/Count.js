@@ -1,4 +1,10 @@
-import React, {Component} from 'react';
+// import CountUI from '../../component/Count/Count'
+import React, {Component} from "react";
+import {connect} from 'react-redux'
+import {createIncrementAction} from "../../redux/count_action";
+import {createDecrementAction} from "../../redux/count_action";
+import {createIncrementAsyncAction} from "../../redux/count_action";
+
 class Count extends Component {
 
     addNumber = () => {
@@ -41,5 +47,26 @@ class Count extends Component {
         );
     }
 }
+// const mapStateToProps = (state) => {
+//     return {count: state}
+// }
 
-export default Count;
+// const mapDispatchToProps = (dispatch) => {
+//     return {
+//         addNumber: (number) => {dispatch(createIncrementAction(number))},
+//         minusNumber: (number) => {dispatch(createDecrementAction(number))},
+//         addAsync: (number,time) => {dispatch(createIncrementAsyncAction(number,time))}
+//
+//     }
+// }
+
+const CountContainer = connect(
+    state => ({count:state}),
+    {
+        addNumber: (createIncrementAction),
+        minusNumber: (createDecrementAction),
+        addAsync: (createIncrementAsyncAction)
+    }
+)(Count)
+
+export default CountContainer
